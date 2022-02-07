@@ -104,14 +104,29 @@ public class Picture extends SimplePicture
     // Using the zeroBlue method as a starting point, write the method keepOnlyBlue that
     // will keep **only** the blue values, that is, it will set the red and green values to zero
     public void keepOnlyBlue() {
-        // YOUR CODE HERE
+        Pixel[][] pixels = this.getPixels2D();
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < pixels[0].length; col++) {
+                Pixel pix = pixels[row][col];
+                pix.setGreen(0);
+                pix.setRed(0);
+            }
+        }
     }
 
     // Write the negate method to negate all the pixels in a picture. To negate a picture, set the red
     // value to 255 minus the current red value, the green value to 255 minus the current green value
     // and the blue value to 255 minus the current blue value.
     public void negate() {
-        // YOUR CODE HERE
+        Pixel[][] pixels = this.getPixels2D();
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < pixels[0].length; col++) {
+                Pixel pix = pixels[row][col];
+                pix.setGreen(255-pix.getGreen());
+                pix.setRed(255-pix.getRed());
+                pix.setBlue(255-pix.getBlue());
+            }
+        }
     }
 
     // Write the grayscale method to turn the picture into shades of gray. Set the red, green, and
@@ -126,7 +141,15 @@ public class Picture extends SimplePicture
     // Note: you should set the colors values of the pixel you are changing with the
     // setter methods rather than trying to copy the actual pixel
     public void mirrorCopy() {
-        // YOUR CODE HERE
+        Pixel[][] pixels = this.getPixels2D();
+        for (int row = 0; row < pixels.length; row++) {
+            for (int col = 0; col < pixels[0].length; col++) {
+                Pixel pix = pixels[row][col];
+                pix.setGreen((pix.getGreen()+pix.getRed()+pix.getBlue())/3);
+                pix.setRed((pix.getGreen()+pix.getRed()+pix.getBlue())/3);
+                pix.setBlue((pix.getGreen()+pix.getRed()+pix.getBlue())/3);
+            }
+        }
     }
 
     // Bonus — Explore the “water.jpg” picture in the images folder. Write a method
@@ -152,7 +175,8 @@ public class Picture extends SimplePicture
 
         // The explore method makes a pop-up window of the current picture
 //        pic.explore();
-        pic.zeroBlue();
+
+        pic.negate();
         pic.explore();
     }
 
